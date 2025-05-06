@@ -74,7 +74,7 @@ export async function renderAgentSwiper(container) {
 
   container.querySelectorAll('.swiper-slide').forEach((slide, idx) => {
     slide.addEventListener('click', () => {
-      swiper.slideToLoop(idx, 300, false);
+      swiper.slideToLoop(idx, 100, false);
       swiper.once('transitionEnd', () => {
         const agentId = slide.getAttribute('data-agent-id');
         const agent = agents.find(a => a.uuid === agentId);
