@@ -5,14 +5,13 @@ BANORANT is a web application that utilizes the Valorant API to provide players 
 ## Features
 
 - **Agent Swiper**: A carousel of agents that zooms out to show detailed descriptions when clicked.
-- **Player Search**: A search functionality that allows users to find player statistics, cards, and elo ratings.
+- **Bundles Section**: It displays all of the bundles from the Valorant
 - **Maps Section**: Displays a list of maps available in Valorant.
 - **Weapons Section**: Displays a list of weapons available in Valorant.
 
 ## Technologies Used
 
 - JavaScript
-- Tailwind CSS
 - Swiper.js
 - Valorant API
 
