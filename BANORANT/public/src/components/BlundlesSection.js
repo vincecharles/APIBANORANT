@@ -33,7 +33,7 @@ export async function renderBundlesSection(container) {
   const modalContent = container.querySelector('#bundle-modal-content');
   const closeModalBtn = container.querySelector('#close-bundle-modal');
 
-  // Autosuggest
+  // Autosuggest logic
   input.addEventListener('input', () => {
     const value = input.value.trim().toLowerCase();
     if (!value) {
@@ -103,7 +103,7 @@ export async function renderBundlesSection(container) {
     });
   });
 
-  // Modal
+  // Modal logic
   function showBundleModal(bundle) {
     modalContent.innerHTML = `
       <div class="flex flex-col md:flex-row gap-6">
@@ -135,6 +135,7 @@ export async function renderBundlesSection(container) {
 
   closeModalBtn.onclick = () => modal.classList.add('hidden');
 
+  // Keyboard navigation for autosuggest
   let selectedIndex = -1;
   input.addEventListener('keydown', (e) => {
     const items = autosuggest.querySelectorAll('li');
