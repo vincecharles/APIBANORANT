@@ -33,9 +33,14 @@ export async function renderWeaponsSection(container) {
     const suggestions = allWeapons.filter(w => w.displayName.toLowerCase().includes(value));
     if (suggestions.length) {
       autosuggest.innerHTML = suggestions
-        .slice(0, 5)
-        .map(w => `<li class="px-4 py-2 hover:bg-indigo-600 cursor-pointer" data-name="${w.displayName}">${w.displayName}</li>`)
-        .join('');
+      .slice(0, 5)
+      .map(w => `
+        <li class="flex items-center gap-2 px-4 py-2 hover:bg-indigo-600 cursor-pointer" data-name="${w.displayName}">
+          <img src="${w.displayIcon}" alt="${w.displayName}" class="w-8 h-8 object-contain rounded" />
+          <span>${w.displayName}</span>
+        </li>
+      `)
+      .join('');
       autosuggest.classList.remove('hidden');
     } else {
       autosuggest.classList.add('hidden');
@@ -65,15 +70,15 @@ export async function renderWeaponsSection(container) {
       return;
     }
     results.innerHTML = `
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        ${filtered.map(weapon => `
-          <div class="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-xl transition">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      ${filtered.map(weapon => `
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-xl transition">
           <img src="${weapon.displayIcon}" alt="${weapon.displayName}" title="${weapon.displayName}" class="w-full h-20 object-contain mb-2"/>
-            <div class="font-semibold text-lg text-indigo-200">${weapon.displayName}</div>
-          </div>
-        `).join('')}
-      </div>
-    `;
+          <div class="font-semibold text-lg text-indigo-200">${weapon.displayName}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
   });
 
 

@@ -33,9 +33,14 @@ export async function renderBundlesSection(container) {
     const suggestions = allBundles.filter(b => b.displayName.toLowerCase().includes(value));
     if (suggestions.length) {
       autosuggest.innerHTML = suggestions
-        .slice(0, 5)
-        .map(b => `<li class="px-4 py-2 hover:bg-indigo-600 cursor-pointer" data-name="${b.displayName}">${b.displayName}</li>`)
-        .join('');
+      .slice(0, 5)
+      .map(w => `
+        <li class="flex items-center gap-2 px-4 py-2 hover:bg-indigo-600 cursor-pointer" data-name="${w.displayName}">
+          <img src="${w.displayIcon}" alt="${w.displayName}" class="w-8 h-8 object-contain rounded" />
+          <span>${w.displayName}</span>
+        </li>
+      `)
+      .join('');
       autosuggest.classList.remove('hidden');
     } else {
       autosuggest.classList.add('hidden');
