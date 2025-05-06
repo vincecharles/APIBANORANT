@@ -19,7 +19,7 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 16px;
+  padding: 24px 8px;
 }
 
 .glass {
@@ -29,29 +29,29 @@ body {
   backdrop-filter: blur(10px);
   border-radius: 24px;
   border: 1.5px solid var(--valo-red);
-  padding: 32px;
-  margin-bottom: 32px;
+  padding: 24px;
+  margin-bottom: 24px;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2.2rem;
   font-weight: 900;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   color: var(--valo-red);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   text-align: center;
   text-shadow: 0 2px 8px #000a;
 }
 
 .subtitle {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #b0b6be;
   text-align: center;
   margin-bottom: 8px;
 }
 
 .swiper {
-  padding: 24px 0;
+  padding: 16px 0;
 }
 
 .swiper-slide {
@@ -62,10 +62,10 @@ body {
 }
 
 .swiper-slide img {
-  width: 112px;
-  height: 112px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  border: 4px solid var(--valo-red);
+  border: 3px solid var(--valo-red);
   box-shadow: 0 4px 24px 0 rgba(255,70,85,0.15);
   transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
   background: #222;
@@ -78,9 +78,9 @@ body {
 }
 
 .agent-name {
-  margin-top: 12px;
+  margin-top: 10px;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--valo-light);
   letter-spacing: 0.05em;
 }
@@ -94,6 +94,7 @@ body {
   justify-content: center;
   z-index: 50;
   transition: opacity 0.3s;
+  padding: 12px;
 }
 
 #agent-modal.hidden {
@@ -101,11 +102,13 @@ body {
 }
 
 #agent-modal .glass {
-  max-width: 480px;
+  max-width: 95vw;
   width: 100%;
   position: relative;
   animation: fadeIn 0.3s;
   border-color: var(--valo-red);
+  overflow-y: auto;
+  max-height: 90vh;
 }
 
 #close-modal {
@@ -118,6 +121,7 @@ body {
   border: none;
   cursor: pointer;
   transition: color 0.2s;
+  z-index: 2;
 }
 
 #close-modal:hover {
@@ -125,16 +129,16 @@ body {
 }
 
 .agent-modal-img {
-  width: 192px;
+  width: 140px;
   display: block;
-  margin: 0 auto 24px auto;
+  margin: 0 auto 18px auto;
   border-radius: 16px;
   box-shadow: 0 4px 24px 0 var(--valo-red);
   background: #222;
 }
 
 .agent-modal-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 900;
   color: var(--valo-red);
   margin-bottom: 8px;
@@ -143,7 +147,7 @@ body {
 
 .agent-modal-desc {
   color: #e5e7eb;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   text-align: center;
 }
 
@@ -171,6 +175,8 @@ input[type="text"], input[type="search"] {
   border-radius: 8px;
   font-size: 1rem;
   transition: border 0.2s;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input[type="text"]:focus, input[type="search"]:focus {
@@ -232,8 +238,8 @@ ul[role="listbox"] li:hover {
 
 .playercard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
 }
 
 .playercard {
@@ -253,28 +259,81 @@ ul[role="listbox"] li:hover {
 
 .playercard img {
   width: 100%;
-  height: 140px;
+  height: 120px;
   object-fit: cover;
   display: block;
   background: #222;
 }
 
 .playercard-content {
-  padding: 1rem;
+  padding: 0.8rem;
   text-align: center;
 }
 
 .playercard-title {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 900;
   color: var(--valo-red);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .playercard-subtitle {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #b0b6be;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
+}
+
+/* Responsive grid for bundles, maps, weapons */
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+.grid-cols-1 { grid-template-columns: 1fr; }
+@media (min-width: 600px) {
+  .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Responsive modal and Swiper */
+@media (max-width: 900px) {
+  .glass {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  #agent-modal .glass {
+    max-width: 98vw;
+    padding: 12px;
+  }
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 8px 2px;
+  }
+  .glass {
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+  }
+  .playercard img {
+    height: 80px;
+  }
+  #agent-modal .glass {
+    padding: 6px;
+    border-radius: 10px;
+  }
+  .swiper-slide img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  #agent-modal .glass {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
 }
 
 @keyframes fadeIn {
