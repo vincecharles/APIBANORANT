@@ -70,15 +70,24 @@ export async function renderMapsSection(container) {
       return;
     }
     results.innerHTML = `
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        ${filtered.map(map => `
-          <div class="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-xl transition">
-            <img src="${map.splash}" alt="${map.displayName}" class="w-full h-32 object-cover rounded mb-2"/>
-            <div class="font-semibold text-lg text-indigo-200">${map.displayName}</div>
-          </div>
-        `).join('')}
-      </div>
-    `;
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      ${filtered.map(map => `
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-xl transition">
+          <img src="${map.splash}" alt="${map.displayName}" class="w-full h-32 object-cover rounded mb-2"/>
+          <div class="font-semibold text-lg text-indigo-200">${map.displayName}</div>
+          ${map.displayIcon ? `<img src="${map.displayIcon}" alt="Minimap" class="w-24 h-24 object-contain mt-2 rounded" />` : ''}
+          ${map.callouts && map.callouts.length ? `
+            <div class="mt-2">
+              <span class="font-bold text-indigo-200">Callouts:</span>
+              <ul class="list-disc ml-5 text-sm text-gray-400">
+                ${map.callouts.map(callout => `<li>${callout.regionName}</li>`).join('')}
+              </ul>
+            </div>
+          ` : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
   });
 
 

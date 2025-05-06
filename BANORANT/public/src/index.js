@@ -3,6 +3,7 @@ import { renderMapsSection } from './components/MapsSection.js';
 import { renderWeaponsSection } from './components/WeaponsSection.js';
 import { renderBundlesSection } from './components/BundlesSection.js';
 import { renderPlayerSearch } from './components/PlayerSearch.js';
+import { renderCompetitiveTiers } from './components/CompetitiveTiers.js';
 
 const app = document.getElementById('app');
 
@@ -12,6 +13,7 @@ app.innerHTML = `
   <div id="maps-section" class="hidden"></div>
   <div id="bundles-section" class="hidden"></div>
   <div id="players-section" class="hidden"></div>
+  <div id="tiers-section" class="hidden"></div>
 `;
 
 renderAgentSwiper(document.getElementById('home-section'));
@@ -19,6 +21,7 @@ renderWeaponsSection(document.getElementById('weapons-section'));
 renderMapsSection(document.getElementById('maps-section'));
 renderBundlesSection(document.getElementById('bundles-section'));
 renderPlayerSearch(document.getElementById('players-section'));
+renderCompetitiveTiers(document.getElementById('tiers-section'));
 
 const sections = {
   home: document.getElementById('home-section'),
@@ -26,6 +29,7 @@ const sections = {
   maps: document.getElementById('maps-section'),
   bundles: document.getElementById('bundles-section'),
   players: document.getElementById('players-section'),
+  tiers: document.getElementById('tiers-section'),
 };
 
 function showSection(section) {

@@ -75,6 +75,24 @@ export async function renderWeaponsSection(container) {
         <div class="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-xl transition">
           <img src="${weapon.displayIcon}" alt="${weapon.displayName}" title="${weapon.displayName}" class="w-full h-20 object-contain mb-2"/>
           <div class="font-semibold text-lg text-indigo-200">${weapon.displayName}</div>
+          <div class="text-gray-400 text-sm mt-2">
+            <div>Category: ${weapon.shopData ? weapon.shopData.category : 'N/A'}</div>
+            <div>Cost: ${weapon.shopData ? weapon.shopData.cost : 'N/A'}</div>
+            <div>Fire Rate: ${weapon.weaponStats ? weapon.weaponStats.fireRate : 'N/A'}</div>
+            <div>Magazine: ${weapon.weaponStats ? weapon.weaponStats.magazineSize : 'N/A'}</div>
+            <div>Reload: ${weapon.weaponStats ? weapon.weaponStats.reloadTimeSeconds + 's' : 'N/A'}</div>
+            ${weapon.weaponStats && weapon.weaponStats.damageRanges && weapon.weaponStats.damageRanges.length ? `
+              <div class="mt-1">
+                <span class="font-bold text-indigo-200">Damage:</span>
+                ${weapon.weaponStats.damageRanges.map(dmg => `
+                  <div class="ml-2 text-xs">
+                    <span>${dmg.rangeStartMeters}-${dmg.rangeEndMeters}m:</span>
+                    <span>Head: ${dmg.headDamage}, Body: ${dmg.bodyDamage}, Leg: ${dmg.legDamage}</span>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
         </div>
       `).join('')}
     </div>

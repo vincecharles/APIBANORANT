@@ -53,9 +53,20 @@ export async function renderAgentSwiper(container) {
       <p class="text-gray-200 mb-2">${agent.description}</p>
       <div class="flex flex-wrap gap-2 mt-4 justify-center">
         ${agent.role ? `<span class="bg-indigo-600 px-3 py-1 rounded-full text-xs">${agent.role.displayName}</span>` : ''}
-        ${agent.abilities.filter(a => a.displayName).map(a => `
-          <span class="bg-gray-700 px-2 py-1 rounded text-xs">${a.displayName}</span>
-        `).join('')}
+      </div>
+      <div class="mt-6">
+        <h4 class="text-lg font-bold text-indigo-300 mb-2">Abilities</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          ${agent.abilities.filter(a => a.displayName).map(a => `
+            <div class="flex items-center gap-3 bg-gray-800 rounded p-2">
+              ${a.displayIcon ? `<img src="${a.displayIcon}" alt="${a.displayName}" class="w-10 h-10 rounded" />` : ''}
+              <div>
+                <div class="font-bold text-indigo-200">${a.displayName}</div>
+                <div class="text-gray-400 text-sm">${a.description}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
       </div>
     `;
     modal.classList.remove('hidden');
