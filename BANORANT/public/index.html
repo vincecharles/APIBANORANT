@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BANORANT</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+
+  <link rel="stylesheet" href="/BANORANT/public/style.css">
+  <style>
+
+    .navbar-glass {
+      background: rgba(30, 41, 59, 0.85);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .nav-link {
+      transition: color 0.2s, border-bottom 0.2s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 2px;
+    }
+    .nav-link.active, .nav-link:hover {
+      color: #6366f1;
+      border-bottom: 2px solid #6366f1;
+    }
+    /* Responsive container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 12px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] min-h-screen text-white font-sans">
+  <!-- Navbar -->
+  <nav class="navbar-glass flex justify-between items-center px-8 py-4 mt-6 mb-10 mx-auto max-w-5xl">
+    <div class="text-3xl font-extrabold tracking-widest text-indigo-400 drop-shadow-lg">BANORANT</div>
+    <ul class="flex gap-8 font-semibold text-lg">
+      <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
+      <li><a href="#" class="nav-link" data-section="weapons">Weapons</a></li>
+      <li><a href="#" class="nav-link" data-section="maps">Maps</a></li>
+      <li><a href="#" class="nav-link" data-section="bundles">Bundles</a></li>
+    </ul>
+  </nav>
+
+  <div id="app" class="container">
+    <div class="mb-4 relative flex">
+      <label for="weapon-search-input" class="sr-only">Search Weapons</label>
+      <input
+        id="weapon-search-input"
+        type="text"
+        title="Search Weapons"
+        placeholder="Search weapons..."
+        class="flex-1 px-4 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        autocomplete="off"
+      />
+      <button id="weapon-clear-btn" class="ml-2 px-3 py-2 bg-gray-700 text-white rounded hover:bg-red-600 transition">Clear</button>
+      <button id="weapon-showall-btn" class="ml-2 bg-blue-600 px-4 py-2 rounded text-white font-semibold hover:bg-blue-500 transition">Show All</button>
+    </div>
+  </div>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+  <script type="module" src="/BANORANT/src/index.js"></script>
+</body>
+</html>
