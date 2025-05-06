@@ -29,3 +29,17 @@ export async function getBundles() {
   const data = await res.json();
   return data.data;
 }
+
+export async function searchPlayer(name, tag) {
+  const url = `https://valorant-api-public.vercel.app/api/v1/account/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Player not found');
+  const data = await res.json();
+  return data.data;
+}
+
+export async function getCompetitiveTiers() {
+  const res = await fetch('https://valorant-api.com/v1/competitivetiers');
+  const data = await res.json();
+  return data.data;
+}

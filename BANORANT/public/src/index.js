@@ -2,6 +2,7 @@ import { renderAgentSwiper } from './components/AgentSwiper.js';
 import { renderMapsSection } from './components/MapsSection.js';
 import { renderWeaponsSection } from './components/WeaponsSection.js';
 import { renderBundlesSection } from './components/BundlesSection.js';
+import { renderPlayerSearch } from './components/PlayerSearch.js';
 
 const app = document.getElementById('app');
 
@@ -10,18 +11,21 @@ app.innerHTML = `
   <div id="weapons-section" class="hidden"></div>
   <div id="maps-section" class="hidden"></div>
   <div id="bundles-section" class="hidden"></div>
+  <div id="players-section" class="hidden"></div>
 `;
 
 renderAgentSwiper(document.getElementById('home-section'));
 renderWeaponsSection(document.getElementById('weapons-section'));
 renderMapsSection(document.getElementById('maps-section'));
 renderBundlesSection(document.getElementById('bundles-section'));
+renderPlayerSearch(document.getElementById('players-section'));
 
 const sections = {
   home: document.getElementById('home-section'),
   weapons: document.getElementById('weapons-section'),
   maps: document.getElementById('maps-section'),
   bundles: document.getElementById('bundles-section'),
+  players: document.getElementById('players-section'),
 };
 
 function showSection(section) {
