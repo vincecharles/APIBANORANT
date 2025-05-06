@@ -1,10 +1,19 @@
-import { getBundles } from '../api/valorant.js';
+import { getBundles, getWeapons, getPlayerCards } from '../api/valorant.js';
 
 let allBundles = [];
+let allSkins = [];
+let allPlayerCards = [];
 
 export async function renderBundlesSection(container) {
   if (!allBundles.length) {
     allBundles = await getBundles();
+  }
+  if (!allSkins.length) {
+    const weapons = await getWeapons();
+    allSkins = weapons.flatMap(w => w.skins);
+  }
+  if (!allPlayerCards.length) {
+    allPlayerCards = await getPlayerCards();
   }
 
   container.innerHTML = `
@@ -111,19 +120,26 @@ export async function renderBundlesSection(container) {
         <div>
           <h3 class="text-2xl font-bold text-indigo-400 mb-2">${bundle.displayName}</h3>
           <div class="text-gray-400 mb-2">${bundle.description || ''}</div>
-          ${bundle.price ? `<div class="mb-2 text-indigo-400 font-bold">Price: ${bundle.price}</div>` : ''}
           <div class="font-semibold text-lg text-indigo-200 mb-2">Contents:</div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             ${bundle.items && bundle.items.length
-              ? bundle.items.map(item => `
-                <div class="bg-gray-900 p-2 rounded flex items-center gap-3">
-                  ${item.item && item.item.displayIcon ? `<img src="${item.item.displayIcon}" alt="${item.item.displayName}" class="w-12 h-12 object-contain rounded"/>` : ''}
-                  <div>
-                    <div class="font-bold text-indigo-200">${item.item && item.item.displayName ? item.item.displayName : 'Unknown Item'}</div>
-                    ${item.price ? `<div class="text-indigo-400 text-sm">Price: ${item.price}</div>` : ''}
-                  </div>
-                </div>
-              `).join('')
+              ? bundle.items.map(item => {
+                  //find the item in skins or player cards
+                  let found = allSkins.find(skin => skin.uuid === item.itemUuid);
+                  if (!found) {
+                    found = allPlayerCards.find(card => card.uuid === item.itemUuid);
+                  }
+                  return found
+                    ? `<div class="bg-gray-900 p-2 rounded flex items-center gap-3">
+                        ${found.displayIcon || found.largeArt ? `<img src="${found.displayIcon || found.largeArt}" alt="${found.displayName}" class="w-12 h-12 object-contain rounded"/>` : ''}
+                        <div>
+                          <div class="font-bold text-indigo-200">${found.displayName}</div>
+                        </div>
+                      </div>`
+                    : `<div class="bg-gray-900 p-2 rounded flex items-center gap-3">
+                        <div class="font-bold text-indigo-200">Unknown Item</div>
+                      </div>`;
+                }).join('')
               : '<div class="text-gray-400">No items found in this bundle.</div>'
             }
           </div>
