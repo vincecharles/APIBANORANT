@@ -4,9 +4,9 @@ export function renderPlayerSearch(container) {
   container.innerHTML = `
     <div class="glass mb-6">
       <h2 class="text-2xl font-bold mb-4 text-indigo-300">Player Search</h2>
-      <div class="flex flex-col md:flex-row items-center gap-2">
-        <input id="player-name-input" type="text" placeholder="Player Name" class="flex-1 p-2 rounded bg-gray-700 text-white" />
-        <input id="player-tag-input" type="text" placeholder="Tag (e.g. NA1)" class="w-32 p-2 rounded bg-gray-700 text-white" />
+<div class="flex flex-col gap-2">
+<input id="player-name-input" type="text" placeholder="Player Name" class="flex-1 min-w-[120px] p-2 rounded bg-gray-700 text-white" />
+<input id="player-tag-input" type="text" placeholder="Tag (e.g. NA1)" class="w-32 min-w-0 p-2 rounded bg-gray-700 text-white" />
         <button id="player-search-btn" class="bg-indigo-600 px-6 py-2 rounded text-white font-semibold hover:bg-indigo-500 transition">Search</button>
       </div>
       <div id="player-result" class="mt-6"></div>
