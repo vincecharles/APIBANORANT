@@ -1,5 +1,7 @@
 import { searchPlayer } from '../api/valorant.js';
 
+const API_KEY = '2d261f67-9428-40e4-991a-657bced6ce37';
+
 export function renderPlayerSearch(container) {
   container.innerHTML = `
     <div class="glass mb-6">
@@ -27,13 +29,18 @@ export function renderPlayerSearch(container) {
     }
     resultDiv.innerHTML = `<div class="text-gray-400">Searching...</div>`;
     try {
-      const player = await searchPlayer(name, tag);
+      const player = await searchPlayer(name, tag, API_KEY);
       resultDiv.innerHTML = `
         <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center gap-4">
           <img src="${player.card.small}" alt="Player Card" class="w-24 h-24 rounded shadow-lg" />
           <div class="text-xl font-bold text-indigo-200">${player.name} #${player.tag}</div>
           <div class="text-gray-400">Region: ${player.region}</div>
           <div class="text-gray-400">Account Level: ${player.account_level}</div>
+          <div class="text-gray-400">Kills: ${player.stats?.kills ?? 'N/A'}</div>
+          <div class="text-gray-400">Deaths: ${player.stats?.deaths ?? 'N/A'}</div>
+          <div class="text-gray-400">Assists: ${player.stats?.assists ?? 'N/A'}</div>
+          <div class="text-gray-400">Score: ${player.stats?.score ?? 'N/A'}</div>
+          <div class="text-gray-400">Elo: ${player.stats?.elo ?? 'N/A'}</div>
         </div>
       `;
     } catch (err) {
