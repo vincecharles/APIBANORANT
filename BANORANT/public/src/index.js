@@ -3,7 +3,7 @@ import { renderMapsSection } from './components/MapsSection.js';
 import { renderWeaponsSection } from './components/WeaponsSection.js';
 import { renderBundlesSection } from './components/BundlesSection.js';
 import { renderPlayerSearch } from './components/PlayerSearch.js';
-import { getCompetitiveTiers } from '../api/valorant.js'; 
+import { getCompetitiveTiers } from './api/valorant.js'; 
 
 
 
