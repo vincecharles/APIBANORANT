@@ -7,14 +7,33 @@ import { renderCompetitiveTiers } from './components/CompetitiveTiers.js';
 
 const app = document.getElementById('app');
 
-app.innerHTML = `
-  <div id="home-section"></div>
-  <div id="weapons-section" class="hidden"></div>
-  <div id="maps-section" class="hidden"></div>
-  <div id="bundles-section" class="hidden"></div>
-  <div id="players-section" class="hidden"></div>
-  <div id="tiers-section" class="hidden"></div>
-`;
+
+//Spinner
+const spinner = document.getElementById('loading-spinner');
+spinner.style.display = 'flex'; 
+
+async function initializeApp() {
+  app.innerHTML = `
+    <div id="home-section"></div>
+    <div id="weapons-section" class="hidden"></div>
+    <div id="maps-section" class="hidden"></div>
+    <div id="bundles-section" class="hidden"></div>
+    <div id="players-section" class="hidden"></div>
+    <div id="tiers-section" class="hidden"></div>
+  `;
+
+  await renderAgentSwiper(document.getElementById('home-section'));
+  await renderWeaponsSection(document.getElementById('weapons-section'));
+  await renderMapsSection(document.getElementById('maps-section'));
+  await renderBundlesSection(document.getElementById('bundles-section'));
+  await renderPlayerSearch(document.getElementById('players-section'));
+  await renderCompetitiveTiers(document.getElementById('tiers-section'));
+
+  spinner.style.display = 'none'; 
+  showSection('home');
+}
+
+initializeApp();
 
 renderAgentSwiper(document.getElementById('home-section'));
 renderWeaponsSection(document.getElementById('weapons-section'));
@@ -31,6 +50,8 @@ const sections = {
   players: document.getElementById('players-section'),
   tiers: document.getElementById('tiers-section'),
 };
+
+
 
 function showSection(section) {
   Object.entries(sections).forEach(([key, el]) => {
@@ -49,6 +70,8 @@ function showSection(section) {
     }
   });
 }
+
+
 
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', e => {

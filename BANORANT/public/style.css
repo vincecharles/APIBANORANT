@@ -23,14 +23,18 @@ body {
 }
 
 .glass {
-  background: rgba(31, 35, 38, 0.85);
-  box-shadow: 0 8px 32px 0 rgba(255, 70, 85, 0.12);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  border: 1.5px solid var(--valo-red);
-  padding: 24px;
-  margin-bottom: 24px;
+  background: rgba(31, 35, 38, 0.92);
+  box-shadow: 0 8px 32px 0 rgba(255, 70, 85, 0.18);
+  border-radius: 28px;
+  border: 2px solid var(--valo-red);
+  padding: 32px;
+  margin-bottom: 32px;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+
+.glass:hover {
+  box-shadow: 0 12px 48px 0 var(--valo-accent);
+  border-color: var(--valo-accent);
 }
 
 .title {
@@ -199,6 +203,10 @@ button:hover {
   background: var(--valo-accent);
 }
 
+button:active {
+  background: var(--valo-blue);
+}
+
 ul[role="listbox"] {
   background: #23272b;
   color: var(--valo-light);
@@ -221,7 +229,15 @@ ul[role="listbox"] li:hover {
 }
 
 .bg-gray-800 {
-  background: #23272b !important;
+  background: rgba(35, 39, 43, 0.95) !important;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 var(--valo-blue);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.bg-gray-800:hover {
+  box-shadow: 0 8px 32px 0 var(--valo-accent);
+  transform: translateY(-4px) scale(1.03);
 }
 
 .font-semibold, .font-bold {
@@ -337,6 +353,28 @@ ul[role="listbox"] li:hover {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95);}
+  from { opacity: 0; transform: scale(0.97);}
   to { opacity: 1; transform: scale(1);}
+}
+
+.navbar-glass {
+  background: rgba(30, 41, 59, 0.92) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 2px solid var(--valo-blue);
+}
+
+.nav-link.active, .nav-link:hover {
+  color: var(--valo-accent) !important;
+  border-bottom: 2px solid var(--valo-accent) !important;
+  background: rgba(255, 70, 85, 0.08);
+  border-radius: 8px 8px 0 0;
+}
+
+#agent-modal, #bundle-modal {
+  animation: fadeIn 0.3s;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
