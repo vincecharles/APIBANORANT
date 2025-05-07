@@ -66,7 +66,7 @@ export async function renderCompetitiveTiers(container) {
       `).join('')}
     </div>
   `;
-  container.appendChild(div); // Append instead of overwrite
+  container.appendChild(div); 
 }
 
 
