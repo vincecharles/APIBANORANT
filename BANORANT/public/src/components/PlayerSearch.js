@@ -1,6 +1,6 @@
 import { searchPlayer } from '../api/valorant.js';
 
-const API_KEY = process.env.VALORANT_API_KEY;
+const API_KEY = import.meta.env.VITE_VALORANT_API_KEY || process.env.VALORANT_API_KEY;
 
 export function renderPlayerSearch(container) {
   container.innerHTML = `
