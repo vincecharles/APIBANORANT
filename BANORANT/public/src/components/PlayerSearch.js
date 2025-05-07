@@ -1,6 +1,6 @@
 import { searchPlayer } from '../api/valorant.js';
 
-const API_KEY = process.env.VALORANT_API_KEY;
+
 
 export function renderPlayerSearch(container) {
   container.innerHTML = `
@@ -29,7 +29,7 @@ export function renderPlayerSearch(container) {
     }
     resultDiv.innerHTML = `<div class="text-gray-400">Searching...</div>`;
     try {
-      const player = await searchPlayer(name, tag, API_KEY);
+      const player = await searchPlayer(name, tag); 
       resultDiv.innerHTML = `
         <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center gap-4">
           <img src="${player.card.small}" alt="Player Card" class="w-24 h-24 rounded shadow-lg" />
