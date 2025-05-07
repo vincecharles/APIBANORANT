@@ -3,8 +3,7 @@ import { renderMapsSection } from './components/MapsSection.js';
 import { renderWeaponsSection } from './components/WeaponsSection.js';
 import { renderBundlesSection } from './components/BundlesSection.js';
 import { renderPlayerSearch } from './components/PlayerSearch.js';
-import { getCompetitiveTiers } from '../api/valorant.js';
-
+import { getCompetitiveTiers } from '../api/valorant.js'; 
 
 
 
@@ -37,7 +36,7 @@ async function initializeApp() {
   showSection('home');
 }
 
-
+initializeApp();
 
 const sections = {
   home: document.getElementById('home-section'),
@@ -45,6 +44,7 @@ const sections = {
   maps: document.getElementById('maps-section'),
   bundles: document.getElementById('bundles-section'),
   players: document.getElementById('players-section'),
+  tiers: document.getElementById('tiers-section'),
 };
 
 export async function renderCompetitiveTiers(container) {
@@ -96,5 +96,5 @@ document.querySelectorAll('.nav-link').forEach(link => {
     showSection(link.dataset.section);
   });
 });
-initializeApp();
+
 showSection('home');
