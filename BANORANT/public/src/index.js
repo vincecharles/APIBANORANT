@@ -44,7 +44,6 @@ const sections = {
   maps: document.getElementById('maps-section'),
   bundles: document.getElementById('bundles-section'),
   players: document.getElementById('players-section'),
-  tiers: document.getElementById('tiers-section'),
 };
 
 export async function renderCompetitiveTiers(container) {
@@ -73,6 +72,7 @@ export async function renderCompetitiveTiers(container) {
 
 function showSection(section) {
   Object.entries(sections).forEach(([key, el]) => {
+    if (!el) return;
     if (key === section) {
       el.classList.remove('hidden');
     } else {
