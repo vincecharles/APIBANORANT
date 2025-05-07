@@ -1,7 +1,5 @@
 import { searchPlayer } from '../api/valorant.js';
 
-
-
 export function renderPlayerSearch(container) {
   container.innerHTML = `
     <div class="glass mb-6">
@@ -36,11 +34,50 @@ export function renderPlayerSearch(container) {
           <div class="text-xl font-bold text-indigo-200">${player.name} #${player.tag}</div>
           <div class="text-gray-400">Region: ${player.region}</div>
           <div class="text-gray-400">Account Level: ${player.account_level}</div>
+          <div class="text-gray-400">Current Rank: ${player.current_rank}</div>
+          <div class="text-gray-400">Last Act: ${player.last_act}</div>
           <div class="text-gray-400">Kills: ${player.stats?.kills ?? 'N/A'}</div>
           <div class="text-gray-400">Deaths: ${player.stats?.deaths ?? 'N/A'}</div>
           <div class="text-gray-400">Assists: ${player.stats?.assists ?? 'N/A'}</div>
           <div class="text-gray-400">Score: ${player.stats?.score ?? 'N/A'}</div>
-          <div class="text-gray-400">Elo: ${player.stats?.elo ?? 'N/A'}</div>
+          <div class="text-gray-400">K/D: ${player.stats?.kd ?? 'N/A'}</div>
+          <div class="text-gray-400">Win Rate: ${player.stats?.winRate ?? 'N/A'}</div>
+          <div class="text-gray-400">Matches Played: ${player.stats?.matchesPlayed ?? 'N/A'}</div>
+        </div>
+        <div class="mt-6">
+          <h3 class="text-lg font-bold text-indigo-300 mb-2">Recent Matches</h3>
+          ${player.match_history && player.match_history.length ? `
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-sm text-gray-300">
+                <thead>
+                  <tr>
+                    <th class="px-2 py-1">Map</th>
+                    <th class="px-2 py-1">Mode</th>
+                    <th class="px-2 py-1">Result</th>
+                    <th class="px-2 py-1">Kills</th>
+                    <th class="px-2 py-1">Deaths</th>
+                    <th class="px-2 py-1">Assists</th>
+                    <th class="px-2 py-1">Score</th>
+                    <th class="px-2 py-1">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${player.match_history.slice(0, 10).map(match => `
+                    <tr>
+                      <td class="px-2 py-1">${match.map}</td>
+                      <td class="px-2 py-1">${match.mode}</td>
+                      <td class="px-2 py-1">${match.result}</td>
+                      <td class="px-2 py-1">${match.kills}</td>
+                      <td class="px-2 py-1">${match.deaths}</td>
+                      <td class="px-2 py-1">${match.assists}</td>
+                      <td class="px-2 py-1">${match.score}</td>
+                      <td class="px-2 py-1">${new Date(match.date).toLocaleDateString()}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          ` : `<div class="text-gray-400">No recent matches found.</div>`}
         </div>
       `;
     } catch (err) {
