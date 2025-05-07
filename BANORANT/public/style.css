@@ -11,7 +11,7 @@ body {
   background: linear-gradient(135deg, var(--valo-dark) 0%, #1a1a2e 100%);
   min-height: 100vh;
   color: var(--valo-light);
-  font-family: 'Segoe UI', 'Montserrat', Arial, sans-serif;
+  font-family: 'Segoe UI', 'Montserrat', Arial, sans-serif,'Call of Ops Duty II';                                            
   margin: 0;
   padding: 0;
 }
