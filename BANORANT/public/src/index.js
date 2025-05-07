@@ -4,7 +4,7 @@ import { renderWeaponsSection } from './components/WeaponsSection.js';
 import { renderBundlesSection } from './components/BundlesSection.js';
 import { renderPlayerSearch } from './components/PlayerSearch.js';
 import { renderCompetitiveTiers } from './components/CompetitiveTiers.js';
-import { getCompetitiveTiers } from '../api/valorant.js';
+
 
 
 let allTiers = [];
