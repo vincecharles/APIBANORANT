@@ -22,28 +22,21 @@ async function initializeApp() {
     <div id="maps-section" class="hidden"></div>
     <div id="bundles-section" class="hidden"></div>
     <div id="players-section" class="hidden"></div>
-    <div id="tiers-section" class="hidden"></div>
   `;
 
+  // Render Agent Swiper and Competitive Tiers in Home
   await renderAgentSwiper(document.getElementById('home-section'));
+  await renderCompetitiveTiers(document.getElementById('home-section'));
   await renderWeaponsSection(document.getElementById('weapons-section'));
   await renderMapsSection(document.getElementById('maps-section'));
   await renderBundlesSection(document.getElementById('bundles-section'));
   await renderPlayerSearch(document.getElementById('players-section'));
-  await renderCompetitiveTiers(document.getElementById('tiers-section'));
 
-  spinner.style.display = 'none'; 
+  spinner.style.display = 'none';
   showSection('home');
 }
 
 initializeApp();
-
-renderAgentSwiper(document.getElementById('home-section'));
-renderWeaponsSection(document.getElementById('weapons-section'));
-renderMapsSection(document.getElementById('maps-section'));
-renderBundlesSection(document.getElementById('bundles-section'));
-renderPlayerSearch(document.getElementById('players-section'));
-renderCompetitiveTiers(document.getElementById('tiers-section'));
 
 const sections = {
   home: document.getElementById('home-section'),
