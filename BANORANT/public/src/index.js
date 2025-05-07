@@ -3,7 +3,7 @@ import { renderMapsSection } from './components/MapsSection.js';
 import { renderWeaponsSection } from './components/WeaponsSection.js';
 import { renderBundlesSection } from './components/BundlesSection.js';
 import { renderPlayerSearch } from './components/PlayerSearch.js';
-import { renderCompetitiveTiers } from './components/CompetitiveTiers.js';
+
 
 
 
@@ -44,7 +44,6 @@ const sections = {
   maps: document.getElementById('maps-section'),
   bundles: document.getElementById('bundles-section'),
   players: document.getElementById('players-section'),
-  tiers: document.getElementById('tiers-section'),
 };
 
 export async function renderCompetitiveTiers(container) {
