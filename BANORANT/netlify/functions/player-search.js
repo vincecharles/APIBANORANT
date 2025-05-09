@@ -19,6 +19,7 @@ exports.handler = async function(event) {
       headers: { 'TRN-Api-Key': apiKey }
     });
     const data = await response.json();
+    console.log('Tracker.gg API response:', data);
 
 
     if (!data || !data.data) {
