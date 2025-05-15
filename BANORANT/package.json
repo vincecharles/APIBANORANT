@@ -10,7 +10,8 @@
     "dependencies": {
       "axios": "^0.21.1",
       "swiper": "^6.8.2",
-      "tailwindcss": "^2.2.19"
+      "tailwindcss": "^2.2.19",
+      "node-fetch": "^2.6.1"
     },
     "devDependencies": {
       "webpack": "^5.58.2",
