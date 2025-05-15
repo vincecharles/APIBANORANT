@@ -2,13 +2,12 @@ import fetch from 'node-fetch';
 
 
 exports.handler = async function(event) {
-  const { name, tag } = event.queryStringParameters;
-  const apiKey = process.env.VALORANT_API_KEY;
+  const { name, tag, apiKey } = event.queryStringParameters;
 
-  if (!name || !tag) {
+  if (!name || !tag || !apiKey) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'Missing name or tag' }),
+      body: JSON.stringify({ error: 'Missing name, tag, or API key' }),
     };
   }
 
