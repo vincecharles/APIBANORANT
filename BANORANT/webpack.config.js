@@ -1,5 +1,6 @@
 const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
 
@@ -15,6 +16,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public/dist'),
     filename: 'bundle.js',
+    clean: true
   },
   module: {
     rules: [
@@ -27,6 +29,10 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
@@ -36,9 +42,21 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.VALORANT_API_KEY': JSON.stringify(env.VALORANT_API_KEY || process.env.VALORANT_API_KEY)
+    }),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      filename: 'index.html'
     })
   ],
   resolve: {
     extensions: ['.js']
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    compress: true,
+    port: 3000,
+    hot: true
   }
 };
