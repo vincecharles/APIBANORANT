@@ -1,5 +1,5 @@
 const BASE_URL = 'https://valorant-api.com/v1';
-const url = `https://public-api.tracker.gg/v2/valorant/standard/profile/riot/${encodeURIComponent(name)}%23${encodeURIComponent(tag)}`;
+
 
 export const getAgents = async () => {
   const res = await fetch(`${BASE_URL}/agents?isPlayableCharacter=true`);
@@ -39,7 +39,7 @@ export const searchPlayer = async (name, tag) => {
     try {
       errorPayload = await res.json();
     } catch {
-      // If JSON parsing fails, use the default error message
+    
     }
     throw new Error(errorPayload.error || `Player not found or API error (status ${res.status})`);
   }
