@@ -4,6 +4,13 @@ export const handler = async (event) => {
   const { name, tag } = event.queryStringParameters;
   const apiKey = process.env.VALORANT_API_KEY;
 
+  if (!apiKey) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'API key not configured' })
+    };
+  }
+
   if (!name || !tag) {
     return {
       statusCode: 400,
@@ -17,6 +24,14 @@ export const handler = async (event) => {
     const response = await fetch(url, {
       headers: { 'TRN-Api-Key': apiKey }
     });
+    
+    if (!response.ok) {
+      return {
+        statusCode: response.status,
+        body: JSON.stringify({ error: `API error: ${response.statusText}` })
+      };
+    }
+
     const data = await response.json();
     console.log('Tracker.gg API response:', data);
 
@@ -71,13 +86,17 @@ export const handler = async (event) => {
 
     return {
       statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
       body: JSON.stringify({ data: result })
     };
   } catch (error) {
     console.error('Error fetching player data:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'API error' })
+      body: JSON.stringify({ error: 'API error: ' + error.message })
     };
   }
 };

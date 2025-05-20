@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A Valorant information web application",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
@@ -12,6 +13,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "node-fetch": "^3.3.2",
     "swiper": "^8.4.7"
   },
   "devDependencies": {
