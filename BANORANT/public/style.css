@@ -366,7 +366,22 @@ ul[role="listbox"] li:hover {
   border: 2px solid var(--valo-blue);
 }
 
-.nav-link.active, .nav-link:hover {
+.nav-link {
+  color: var(--valo-light);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+  color: var(--valo-accent);
+  border-bottom: 2px solid var(--valo-accent);
+  background: rgba(255, 70, 85, 0.08);
+  border-radius: 8px 8px 0 0;
+}
+
+.nav-link.active {
   color: var(--valo-accent) !important;
   border-bottom: 2px solid var(--valo-accent) !important;
   background: rgba(255, 70, 85, 0.08);

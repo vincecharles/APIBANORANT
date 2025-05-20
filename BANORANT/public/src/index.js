@@ -69,8 +69,12 @@ const showSection = (section) => {
     el.classList.toggle('hidden', key !== section);
   });
 
+  // Update active state of navigation links
   document.querySelectorAll('.nav-link').forEach(link => {
-    link.classList.toggle('text-indigo-300', link.dataset.section === section);
+    link.classList.remove('active');
+    if (link.dataset.section === section) {
+      link.classList.add('active');
+    }
   });
 };
 
