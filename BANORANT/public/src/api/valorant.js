@@ -32,18 +32,18 @@ export const getBundles = async () => {
 };
 
 export const searchPlayer = async (name, tag) => {
-  const res = await fetch(`/netlify/functions/player-search?name=${encodeURIComponent(name)}&tag=${encodeURIComponent(tag)}`);
-  
+  const res = await fetch(`/.netlify/functions/player-search?name=${encodeURIComponent(name)}&tag=${encodeURIComponent(tag)}`);
+
   if (!res.ok) {
     let errorPayload = { error: `Player not found or API error (status ${res.status})` };
     try {
       errorPayload = await res.json();
     } catch {
-    
+
     }
     throw new Error(errorPayload.error || `Player not found or API error (status ${res.status})`);
   }
-  
+
   const { data } = await res.json();
   return data;
 };
