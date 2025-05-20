@@ -2,7 +2,7 @@
     "name": "banorant",
     "version": "1.0.0",
     "description": "A Valorant API application that displays player stats, agents, maps, and weapons.",
-    "main": "src/index.js",
+    "main": "/BANORANT/public/src/index.js",
     "scripts": {
       "start": "webpack serve --mode development",
       "build": "webpack --mode production",
