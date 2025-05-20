@@ -10,13 +10,7 @@ const app = document.getElementById('app');
 const spinner = document.getElementById('loading-spinner');
 spinner.style.display = 'flex'; 
 
-const sections = {
-  home: document.getElementById('home-section'),
-  weapons: document.getElementById('weapons-section'),
-  maps: document.getElementById('maps-section'),
-  bundles: document.getElementById('bundles-section'),
-  players: document.getElementById('players-section'),
-};
+let sections = {};
 
 const initializeApp = async () => {
   app.innerHTML = `
@@ -26,6 +20,15 @@ const initializeApp = async () => {
     <div id="bundles-section" class="hidden"></div>
     <div id="players-section" class="hidden"></div>
   `;
+
+  // Initialize sections after creating them in the DOM
+  sections = {
+    home: document.getElementById('home-section'),
+    weapons: document.getElementById('weapons-section'),
+    maps: document.getElementById('maps-section'),
+    bundles: document.getElementById('bundles-section'),
+    players: document.getElementById('players-section'),
+  };
 
   // Render all sections
   await Promise.all([
@@ -64,10 +67,15 @@ export const renderCompetitiveTiers = async (container) => {
 };
 
 const showSection = (section) => {
-  Object.entries(sections).forEach(([key, el]) => {
-    if (!el) return;
-    el.classList.toggle('hidden', key !== section);
+  // Hide all sections
+  Object.values(sections).forEach(el => {
+    if (el) el.classList.add('hidden');
   });
+
+  // Show the selected section
+  if (sections[section]) {
+    sections[section].classList.remove('hidden');
+  }
 
   // Update active state of navigation links
   document.querySelectorAll('.nav-link').forEach(link => {
@@ -79,13 +87,17 @@ const showSection = (section) => {
 };
 
 // Event Listeners
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    showSection(link.dataset.section);
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const section = link.dataset.section;
+      if (section) {
+        showSection(section);
+      }
+    });
   });
 });
 
 // Initialize the app
 initializeApp();
-showSection('home');
