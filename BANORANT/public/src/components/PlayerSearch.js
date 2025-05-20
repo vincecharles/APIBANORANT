@@ -7,8 +7,10 @@ export const renderPlayerSearch = (container) => {
       <div class="flex flex-col md:flex-row items-center gap-2">
         <input id="player-name-input" type="text" placeholder="Player Name (case-sensitive, e.g. Takoyaki)" class="px-4 py-2 rounded bg-gray-700 text-white flex-grow" />
         <div class="relative flex-grow">
-          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">#</span>
-          <input id="player-tag-input" type="text" placeholder="Tag (e.g. VINCE)" class="pl-8 pr-4 py-2 rounded bg-gray-700 text-white w-full" />
+          <div class="flex items-center">
+            <span class="absolute left-3 text-indigo-300 font-semibold">#</span>
+            <input id="player-tag-input" type="text" placeholder="Tag (e.g. VINCE)" class="pl-7 pr-4 py-2 rounded bg-gray-700 text-white w-full border border-transparent focus:border-indigo-500 focus:outline-none" />
+          </div>
         </div>
         <button id="player-search-btn" class="bg-indigo-600 px-6 py-2 rounded text-white font-semibold hover:bg-indigo-500 transition">Search</button>
       </div>
