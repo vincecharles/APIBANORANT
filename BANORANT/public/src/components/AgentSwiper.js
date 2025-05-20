@@ -1,6 +1,6 @@
 import { getAgents } from '../api/valorant.js';
 
-export async function renderAgentSwiper(container) {
+export const renderAgentSwiper = async (container) => {
   const agents = await getAgents();
   container.innerHTML = `
     <div class="glass p-8 mb-8">
@@ -68,22 +68,7 @@ export async function renderAgentSwiper(container) {
     }
   });
 
-
-  container.querySelector('#swiper-prev').onclick = () => swiper.slidePrev();
-  container.querySelector('#swiper-next').onclick = () => swiper.slideNext();
-
-  container.querySelectorAll('.swiper-slide').forEach((slide, idx) => {
-    slide.addEventListener('click', () => {
-      swiper.slideToLoop(idx, 100, false);
-      swiper.once('transitionEnd', () => {
-        const agentId = slide.getAttribute('data-agent-id');
-        const agent = agents.find(a => a.uuid === agentId);
-        showAgentModal(agent);
-      });
-    });
-  });
-
-  function showAgentModal(agent) {
+  const showAgentModal = (agent) => {
     const modal = container.querySelector('#agent-modal');
     const content = container.querySelector('#agent-modal-content');
     content.innerHTML = `
@@ -116,6 +101,23 @@ export async function renderAgentSwiper(container) {
     `;
     modal.querySelector('.glass').style.maxWidth = '700px';
     modal.classList.remove('hidden');
-    container.querySelector('#close-modal').onclick = () => modal.classList.add('hidden');
-  }
-}
+  };
+
+  // Event Listeners
+  container.querySelector('#swiper-prev').addEventListener('click', () => swiper.slidePrev());
+  container.querySelector('#swiper-next').addEventListener('click', () => swiper.slideNext());
+  container.querySelector('#close-modal').addEventListener('click', () => {
+    container.querySelector('#agent-modal').classList.add('hidden');
+  });
+
+  container.querySelectorAll('.swiper-slide').forEach((slide, idx) => {
+    slide.addEventListener('click', () => {
+      swiper.slideToLoop(idx, 100, false);
+      swiper.once('transitionEnd', () => {
+        const agentId = slide.dataset.agentId;
+        const agent = agents.find(a => a.uuid === agentId);
+        showAgentModal(agent);
+      });
+    });
+  });
+};

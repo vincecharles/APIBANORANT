@@ -1,19 +1,19 @@
 import { getBundles, getWeapons, getPlayerCards } from '../api/valorant.js';
 
-let allBundles = [];
-let allSkins = [];
-let allPlayerCards = [];
+const allBundles = [];
+const allSkins = [];
+const allPlayerCards = [];
 
-export async function renderBundlesSection(container) {
+export const renderBundlesSection = async (container) => {
   if (!allBundles.length) {
-    allBundles = await getBundles();
+    allBundles.push(...await getBundles());
   }
   if (!allSkins.length) {
     const weapons = await getWeapons();
-    allSkins = weapons.flatMap(w => w.skins);
+    allSkins.push(...weapons.flatMap(w => w.skins));
   }
   if (!allPlayerCards.length) {
-    allPlayerCards = await getPlayerCards();
+    allPlayerCards.push(...await getPlayerCards());
   }
 
   container.innerHTML = `
@@ -41,9 +41,9 @@ export async function renderBundlesSection(container) {
   const modal = container.querySelector('#bundle-modal');
   const modalContent = container.querySelector('#bundle-modal-content');
   const closeModalBtn = container.querySelector('#close-bundle-modal');
+  let selectedIndex = -1;
 
-  // Autosuggest
-  input.addEventListener('input', () => {
+  const handleInput = () => {
     const value = input.value.trim().toLowerCase();
     if (!value) {
       autosuggest.classList.add('hidden');
@@ -64,21 +64,9 @@ export async function renderBundlesSection(container) {
     } else {
       autosuggest.classList.add('hidden');
     }
-  });
+  };
 
-  autosuggest.addEventListener('click', (e) => {
-    if (e.target.closest('li')) {
-      input.value = e.target.closest('li').dataset.name;
-      autosuggest.classList.add('hidden');
-    }
-  });
-
-  input.addEventListener('blur', () => {
-    setTimeout(() => autosuggest.classList.add('hidden'), 100);
-  });
-
-  // Search logic
-  searchBtn.addEventListener('click', () => {
+  const handleSearch = () => {
     const value = input.value.trim().toLowerCase();
     if (!value) {
       results.innerHTML = '';
@@ -110,10 +98,9 @@ export async function renderBundlesSection(container) {
         showBundleModal(bundle);
       });
     });
-  });
+  };
 
-  // Modal
-  function showBundleModal(bundle) {
+  const showBundleModal = (bundle) => {
     modalContent.innerHTML = `
       <div class="flex flex-col md:flex-row gap-6">
         <img src="${bundle.displayIcon}" alt="${bundle.displayName}" class="w-40 h-40 object-contain rounded mb-4 md:mb-0"/>
@@ -122,13 +109,10 @@ export async function renderBundlesSection(container) {
           <div class="text-gray-400 mb-2">${bundle.description || ''}</div>
           <div class="font-semibold text-lg text-indigo-200 mb-2">Contents:</div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            ${bundle.items && bundle.items.length
+            ${bundle.items?.length
               ? bundle.items.map(item => {
-                  //find the item in skins or player cards
-                  let found = allSkins.find(skin => skin.uuid === item.itemUuid);
-                  if (!found) {
-                    found = allPlayerCards.find(card => card.uuid === item.itemUuid);
-                  }
+                  const found = allSkins.find(skin => skin.uuid === item.itemUuid) || 
+                              allPlayerCards.find(card => card.uuid === item.itemUuid);
                   return found
                     ? `<div class="bg-gray-900 p-2 rounded flex items-center gap-3">
                         ${found.displayIcon || found.largeArt ? `<img src="${found.displayIcon || found.largeArt}" alt="${found.displayName}" class="w-12 h-12 object-contain rounded"/>` : ''}
@@ -147,27 +131,44 @@ export async function renderBundlesSection(container) {
       </div>
     `;
     modal.classList.remove('hidden');
-  }
+  };
 
-  closeModalBtn.onclick = () => modal.classList.add('hidden');
-
-  let selectedIndex = -1;
-  input.addEventListener('keydown', (e) => {
+  const handleKeyDown = (e) => {
     const items = autosuggest.querySelectorAll('li');
     if (!items.length) return;
-    if (e.key === 'ArrowDown') {
-      selectedIndex = (selectedIndex + 1) % items.length;
-      items.forEach((li, i) => li.classList.toggle('bg-red-600', i === selectedIndex));
-      e.preventDefault();
-    } else if (e.key === 'ArrowUp') {
-      selectedIndex = (selectedIndex - 1 + items.length) % items.length;
-      items.forEach((li, i) => li.classList.toggle('bg-red-600', i === selectedIndex));
-      e.preventDefault();
-    } else if (e.key === 'Enter' && selectedIndex >= 0) {
-      input.value = items[selectedIndex].dataset.name;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        selectedIndex = (selectedIndex + 1) % items.length;
+        items.forEach((li, i) => li.classList.toggle('bg-indigo-600', i === selectedIndex));
+        e.preventDefault();
+        break;
+      case 'ArrowUp':
+        selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+        items.forEach((li, i) => li.classList.toggle('bg-indigo-600', i === selectedIndex));
+        e.preventDefault();
+        break;
+      case 'Enter':
+        if (selectedIndex >= 0) {
+          input.value = items[selectedIndex].dataset.name;
+          autosuggest.classList.add('hidden');
+          searchBtn.click();
+          e.preventDefault();
+        }
+        break;
+    }
+  };
+
+  // Event Listeners
+  input.addEventListener('input', handleInput);
+  input.addEventListener('keydown', handleKeyDown);
+  input.addEventListener('blur', () => setTimeout(() => autosuggest.classList.add('hidden'), 100));
+  searchBtn.addEventListener('click', handleSearch);
+  autosuggest.addEventListener('click', (e) => {
+    if (e.target.closest('li')) {
+      input.value = e.target.closest('li').dataset.name;
       autosuggest.classList.add('hidden');
-      searchBtn.click();
-      e.preventDefault();
     }
   });
-}
+  closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+};

@@ -1,54 +1,55 @@
 const BASE_URL = 'https://valorant-api.com/v1';
+const url = `https://public-api.tracker.gg/v2/valorant/standard/profile/riot/${encodeURIComponent(name)}%23${encodeURIComponent(tag)}`;
 
-export async function getAgents() {
+export const getAgents = async () => {
   const res = await fetch(`${BASE_URL}/agents?isPlayableCharacter=true`);
-  const data = await res.json();
-  return data.data;
-}
+  const { data } = await res.json();
+  return data;
+};
 
-export async function getMaps() {
+export const getMaps = async () => {
   const res = await fetch(`${BASE_URL}/maps`);
-  const data = await res.json();
-  return data.data;
-}
+  const { data } = await res.json();
+  return data;
+};
 
-export async function getWeapons() {
+export const getWeapons = async () => {
   const res = await fetch(`${BASE_URL}/weapons`);
-  const data = await res.json();
-  return data.data;
-}
+  const { data } = await res.json();
+  return data;
+};
 
-export async function getPlayerCards() {
+export const getPlayerCards = async () => {
   const res = await fetch(`${BASE_URL}/playercards`);
-  const data = await res.json();
-  return data.data;
-}
+  const { data } = await res.json();
+  return data;
+};
 
-export async function getBundles() {
+export const getBundles = async () => {
   const res = await fetch(`${BASE_URL}/bundles`);
-  const data = await res.json();
-  return data.data;
-}
+  const { data } = await res.json();
+  return data;
+};
 
-export async function searchPlayer(name, tag) {
-
+export const searchPlayer = async (name, tag) => {
   const res = await fetch(`/.netlify/functions/player-search?name=${encodeURIComponent(name)}&tag=${encodeURIComponent(tag)}`);
+  
   if (!res.ok) {
     let errorPayload = { error: `Player not found or API error (status ${res.status})` };
     try {
-
       errorPayload = await res.json();
-    } catch (e) {
-
+    } catch {
+      // If JSON parsing fails, use the default error message
     }
     throw new Error(errorPayload.error || `Player not found or API error (status ${res.status})`);
   }
-  const data = await res.json();
-  return data.data;
-}
+  
+  const { data } = await res.json();
+  return data;
+};
 
-export async function getCompetitiveTiers() {
-  const res = await fetch('https://valorant-api.com/v1/competitivetiers');
-  const data = await res.json();
-  return data.data;
-}
+export const getCompetitiveTiers = async () => {
+  const res = await fetch(`${BASE_URL}/competitivetiers`);
+  const { data } = await res.json();
+  return data;
+};

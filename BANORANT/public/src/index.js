@@ -5,38 +5,10 @@ import { renderBundlesSection } from './components/BundlesSection.js';
 import { renderPlayerSearch } from './components/PlayerSearch.js';
 import { getCompetitiveTiers } from './api/valorant.js'; 
 
-
-
-let allTiers = [];
+const allTiers = [];
 const app = document.getElementById('app');
-
-
-//Spinner
 const spinner = document.getElementById('loading-spinner');
 spinner.style.display = 'flex'; 
-
-async function initializeApp() {
-  app.innerHTML = `
-    <div id="home-section"></div>
-    <div id="weapons-section" class="hidden"></div>
-    <div id="maps-section" class="hidden"></div>
-    <div id="bundles-section" class="hidden"></div>
-    <div id="players-section" class="hidden"></div>
-  `;
-
-  // Render Agent Swiper and Competitive Tiers in Home
-  await renderAgentSwiper(document.getElementById('home-section'));
-  await renderCompetitiveTiers(document.getElementById('home-section'));
-  await renderWeaponsSection(document.getElementById('weapons-section'));
-  await renderMapsSection(document.getElementById('maps-section'));
-  await renderBundlesSection(document.getElementById('bundles-section'));
-  await renderPlayerSearch(document.getElementById('players-section'));
-
-  spinner.style.display = 'none';
-  showSection('home');
-}
-
-initializeApp();
 
 const sections = {
   home: document.getElementById('home-section'),
@@ -46,10 +18,33 @@ const sections = {
   players: document.getElementById('players-section'),
 };
 
-export async function renderCompetitiveTiers(container) {
+const initializeApp = async () => {
+  app.innerHTML = `
+    <div id="home-section"></div>
+    <div id="weapons-section" class="hidden"></div>
+    <div id="maps-section" class="hidden"></div>
+    <div id="bundles-section" class="hidden"></div>
+    <div id="players-section" class="hidden"></div>
+  `;
+
+  // Render all sections
+  await Promise.all([
+    renderAgentSwiper(document.getElementById('home-section')),
+    renderCompetitiveTiers(document.getElementById('home-section')),
+    renderWeaponsSection(document.getElementById('weapons-section')),
+    renderMapsSection(document.getElementById('maps-section')),
+    renderBundlesSection(document.getElementById('bundles-section')),
+    renderPlayerSearch(document.getElementById('players-section'))
+  ]);
+
+  spinner.style.display = 'none';
+  showSection('home');
+};
+
+export const renderCompetitiveTiers = async (container) => {
   if (!allTiers.length) {
     const data = await getCompetitiveTiers();
-    allTiers = data[data.length - 1].tiers.filter(t => t.tierName && t.largeIcon);
+    allTiers.push(...data[data.length - 1].tiers.filter(tier => tier.tierName && tier.largeIcon));
   }
 
   const div = document.createElement('div');
@@ -66,31 +61,20 @@ export async function renderCompetitiveTiers(container) {
     </div>
   `;
   container.appendChild(div); 
-}
+};
 
-
-
-function showSection(section) {
+const showSection = (section) => {
   Object.entries(sections).forEach(([key, el]) => {
     if (!el) return;
-    if (key === section) {
-      el.classList.remove('hidden');
-    } else {
-      el.classList.add('hidden');
-    }
+    el.classList.toggle('hidden', key !== section);
   });
 
   document.querySelectorAll('.nav-link').forEach(link => {
-    if (link.dataset.section === section) {
-      link.classList.add('text-indigo-300');
-    } else {
-      link.classList.remove('text-indigo-300');
-    }
+    link.classList.toggle('text-indigo-300', link.dataset.section === section);
   });
-}
+};
 
-
-
+// Event Listeners
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
@@ -98,4 +82,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
   });
 });
 
+// Initialize the app
+initializeApp();
 showSection('home');

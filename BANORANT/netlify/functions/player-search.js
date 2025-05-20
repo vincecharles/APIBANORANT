@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
 
-
-exports.handler = async function(event) {
+export const handler = async (event) => {
   const { name, tag } = event.queryStringParameters;
   const apiKey = process.env.VALORANT_API_KEY;
 
@@ -21,8 +20,7 @@ exports.handler = async function(event) {
     const data = await response.json();
     console.log('Tracker.gg API response:', data);
 
-
-    if (!data || !data.data) {
+    if (!data?.data) {
       return {
         statusCode: 404,
         body: JSON.stringify({ error: 'Player not found' })
@@ -30,26 +28,19 @@ exports.handler = async function(event) {
     }
 
     // Extract relevant info
-    const playerData = data.data;
-    const platformInfo = playerData.platformInfo || {};
-    const segments = playerData.segments || [];
-    const stats = playerData.segments?.find(s => s.type === 'overview')?.stats || {};
-    const matches = playerData.matches || [];
-
-    // Find current rank 
-    const competitiveSegment = segments.find(s => s.metadata && s.metadata.tierName);
-
-    // Last act 
-    const lastAct = segments.find(s => s.metadata && s.metadata.seasonName);
+    const { platformInfo = {}, segments = [], matches = [] } = data.data;
+    const stats = segments.find(s => s.type === 'overview')?.stats ?? {};
+    const competitiveSegment = segments.find(s => s.metadata?.tierName);
+    const lastAct = segments.find(s => s.metadata?.seasonName);
 
     // Build response object
     const result = {
-      name: platformInfo.platformUserHandle || name,
-      tag: tag,
-      region: platformInfo.region || 'N/A',
-      account_level: platformInfo.level || 'N/A',
+      name: platformInfo.platformUserHandle ?? name,
+      tag,
+      region: platformInfo.region ?? 'N/A',
+      account_level: platformInfo.level ?? 'N/A',
       card: {
-        small: platformInfo.avatarUrl || '', 
+        small: platformInfo.avatarUrl ?? '', 
       },
       stats: {
         kills: stats.kills?.value ?? 'N/A',
@@ -60,8 +51,8 @@ exports.handler = async function(event) {
         winRate: stats.winRate?.displayValue ?? 'N/A',
         matchesPlayed: stats.matchesPlayed?.value ?? 'N/A',
       },
-      current_rank: competitiveSegment ? competitiveSegment.metadata.tierName : 'N/A',
-      last_act: lastAct ? lastAct.metadata.seasonName : 'N/A',
+      current_rank: competitiveSegment?.metadata.tierName ?? 'N/A',
+      last_act: lastAct?.metadata.seasonName ?? 'N/A',
       match_history: matches.map(match => ({
         id: match.id,
         map: match.metadata.mapName,
@@ -82,7 +73,8 @@ exports.handler = async function(event) {
       statusCode: 200,
       body: JSON.stringify({ data: result })
     };
-  } catch (err) {
+  } catch (error) {
+    console.error('Error fetching player data:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'API error' })
