@@ -69,7 +69,7 @@ export const renderMapsSection = async (container) => {
             ${map.callouts?.length ? `
               <div class="mt-2">
                 <span class="font-bold text-indigo-200">Callouts:</span>
-                <ul class="list-disc ml-5 text-sm text-gray-400">
+                <ul class="list-disc ml-5 text-sm text-white-400">
                   ${map.callouts.map(callout => `<li>${callout.regionName}</li>`).join('')}
                 </ul>
               </div>

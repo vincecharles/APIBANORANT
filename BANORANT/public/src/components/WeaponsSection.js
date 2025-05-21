@@ -65,7 +65,7 @@ export const renderWeaponsSection = async (container) => {
           <div class="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-xl transition">
             <img src="${weapon.displayIcon}" alt="${weapon.displayName}" title="${weapon.displayName}" class="w-full h-20 object-contain mb-2"/>
             <div class="font-semibold text-lg text-indigo-200">${weapon.displayName}</div>
-            <div class="text-gray-400 text-sm mt-2">
+            <div class="text-white-400 text-sm mt-2">
               <div>Category: ${weapon.shopData?.category ?? 'N/A'}</div>
               <div>Cost: ${weapon.shopData?.cost ?? 'N/A'}</div>
               <div>Fire Rate: ${weapon.weaponStats?.fireRate ?? 'N/A'}</div>

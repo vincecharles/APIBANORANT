@@ -83,7 +83,7 @@ export const renderBundlesSection = async (container) => {
           <div class="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-xl transition cursor-pointer bundle-card" data-bundle-id="${bundle.uuid}">
             <img src="${bundle.displayIcon}" alt="${bundle.displayName}" class="w-full h-40 object-contain mb-2 rounded"/>
             <div class="font-semibold text-lg text-indigo-200">${bundle.displayName}</div>
-            <div class="text-gray-400 text-sm mt-1">${bundle.description || ''}</div>
+            <div class="text-white-400 text-sm mt-1">${bundle.description || ''}</div>
             ${bundle.displayName && bundle.price ? `<div class="mt-2 text-indigo-400 font-bold">Price: ${bundle.price}</div>` : ''}
           </div>
         `).join('')}
