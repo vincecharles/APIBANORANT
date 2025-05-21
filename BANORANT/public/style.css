@@ -54,6 +54,41 @@ body {
   margin-bottom: 8px;
 }
 
+#valo-hero {
+  background: #0f1923;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.7s;
+  z-index: 9999;
+}
+#valo-logo {
+  opacity: 0;
+  transform: scale(0.7);
+  filter: blur(8px);
+  transition: opacity 0.7s, transform 0.7s, filter 0.7s;
+}
+#valo-title {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s 0.5s, transform 0.7s 0.5s;
+  letter-spacing: 0.5em;
+}
+#valo-hero.reveal #valo-logo {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+#valo-hero.reveal #valo-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+#valo-hero.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .swiper {
   padding: 16px 0;
 }
@@ -99,6 +134,18 @@ body {
   z-index: 50;
   transition: opacity 0.3s;
   padding: 12px;
+}
+
+#agent-modal .scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+#agent-modal .scrollable::-webkit-scrollbar-track {
+  background: rgba(31,35,38,0.8);
+  border-radius: 4px;
+}
+#agent-modal .scrollable::-webkit-scrollbar-thumb {
+  background-color: var(--valo-red);
+  border-radius: 4px;
 }
 
 #agent-modal.hidden {

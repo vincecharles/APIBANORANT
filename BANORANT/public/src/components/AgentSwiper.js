@@ -54,6 +54,28 @@ export const renderAgentSwiper = async (container) => {
         .swiper-nav-btn.right-0 { right: 0; }
       }
     </style>
+
+<style>
+
+  #agent-modal .scrollable {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 1rem;          
+    scrollbar-width: thin;         
+    scrollbar-color: var(--valo-red) rgba(31,35,38,0.8);
+  }
+  #agent-modal .scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  #agent-modal .scrollable::-webkit-scrollbar-track {
+    background: rgba(31,35,38,0.8);
+    border-radius: 4px;
+  }
+  #agent-modal .scrollable::-webkit-scrollbar-thumb {
+    background-color: var(--valo-red);
+    border-radius: 4px;
+  }
+</style>
   `;
 
   const swiper = new Swiper('.mySwiper', {
@@ -72,7 +94,7 @@ export const renderAgentSwiper = async (container) => {
     const modal = container.querySelector('#agent-modal');
     const content = container.querySelector('#agent-modal-content');
     content.innerHTML = `
-      <div class="flex flex-col lg:flex-row gap-6 max-h-[80vh] overflow-y-auto">
+      <div class="scrollable flex flex-col lg:flex-row gap-6">
         <div class="flex-shrink-0 flex flex-col items-center w-full lg:w-1/3">
           <img src="${agent.fullPortrait}" class="w-40 max-w-full mx-auto mb-4 rounded-xl shadow-lg border-4 border-indigo-400"/>
           <div class="flex flex-wrap gap-2 mt-2 justify-center">

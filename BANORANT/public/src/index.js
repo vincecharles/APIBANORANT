@@ -3,7 +3,8 @@ import { renderMapsSection } from './components/MapsSection.js';
 import { renderWeaponsSection } from './components/WeaponsSection.js';
 import { renderBundlesSection } from './components/BundlesSection.js';
 import { renderPlayerSearch } from './components/PlayerSearch.js';
-import { getCompetitiveTiers } from './api/valorant.js'; 
+import { getCompetitiveTiers } from './api/valorant.js';
+import { renderPlayerCardsSection } from './components/PlayerCardsSection.js';
 
 const allTiers = [];
 const app = document.getElementById('app');
@@ -14,12 +15,14 @@ let sections = {};
 
 const initializeApp = async () => {
   app.innerHTML = `
-    <div id="home-section"></div>
-    <div id="weapons-section" class="hidden"></div>
-    <div id="maps-section" class="hidden"></div>
-    <div id="bundles-section" class="hidden"></div>
-    <div id="players-section" class="hidden"></div>
-  `;
+  <div id="home-section"></div>
+  <div id="weapons-section" class="hidden"></div>
+  <div id="maps-section" class="hidden"></div>
+  <div id="bundles-section" class="hidden"></div>
+  <div id="players-section" class="hidden"></div>
+  <div id="playercards-section" class="hidden"></div>
+`;
+
 
   // Initialize sections after creating them in the DOM
   sections = {
@@ -28,7 +31,26 @@ const initializeApp = async () => {
     maps: document.getElementById('maps-section'),
     bundles: document.getElementById('bundles-section'),
     players: document.getElementById('players-section'),
+    playercards: document.getElementById('playercards-section'),
   };
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const hero = document.getElementById('valo-hero');
+    const logo = document.getElementById('valo-logo');
+    const title = document.getElementById('valo-title');
+    setTimeout(() => {
+      hero.classList.add('reveal');
+      setTimeout(() => {
+        title.style.opacity = 1;
+        setTimeout(() => {
+          hero.classList.add('hide');
+          setTimeout(() => {
+            hero.style.display = 'none';
+          }, 700);
+        }, 1200); 
+      }, 700); 
+    }, 300); 
+  });
 
   // Render all sections
   await Promise.all([
@@ -37,7 +59,8 @@ const initializeApp = async () => {
     renderWeaponsSection(document.getElementById('weapons-section')),
     renderMapsSection(document.getElementById('maps-section')),
     renderBundlesSection(document.getElementById('bundles-section')),
-    renderPlayerSearch(document.getElementById('players-section'))
+    renderPlayerSearch(document.getElementById('players-section')),
+    renderPlayerCardsSection(document.getElementById('playercards-section')) 
   ]);
 
   spinner.style.display = 'none';

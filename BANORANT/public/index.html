@@ -10,9 +10,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
 
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 </head>
 <body class="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] min-h-screen text-white font-sans">
+  <div id="valo-hero" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0f1923] transition-opacity duration-700">
+    <svg id="valo-logo" width="160" height="160" viewBox="0 0 160 160" fill="none">
+      <path d="M40 120L80 40L120 120H100L80 80L60 120H40Z" fill="#ff4655"/>
+    </svg>
+    <div id="valo-title" class="mt-8 text-5xl font-extrabold tracking-widest text-[#ff4655] font-['Call_of_Ops_Duty_II',sans-serif] opacity-0">BANORANT</div>
+  </div>
   <!-- Navbar -->
   <nav class="navbar-glass flex justify-between items-center px-8 py-4 mt-6 mb-10 mx-auto max-w-5xl">
     <div class="text-3xl font-extrabold tracking-widest text-indigo-400 drop-shadow-lg">BANORANT</div>
@@ -21,7 +28,8 @@
       <li><a href="#" class="nav-link" data-section="weapons">Weapons</a></li>
       <li><a href="#" class="nav-link" data-section="maps">Maps</a></li>
       <li><a href="#" class="nav-link" data-section="bundles">Bundles</a></li>
-      <li><a href="#" class="nav-link" data-section="players">Players</a></li>
+      <li><a href="#" class="nav-link" data-section="playercards">Player Cards</a></li>
+      <li><a href="#" class="nav-link hidden" data-section="players">Players</a></li>
     </ul>
   </nav>
 
